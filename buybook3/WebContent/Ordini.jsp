@@ -2,8 +2,14 @@
 	pageEncoding="UTF-8"%>
 
 <%
- Listaordini lista = (Listaordini) request.getAttribute("listaordini");
- List <OrdiniBean> ordini= lista.getListaordini();
+	UserBean account= (UserBean) session.getAttribute("currentSessionUser");	
+ 	Collection<?> ordini= (Collection<?>) request.getAttribute("VOrdini");
+ 	if(ordini==null){
+	 	response.sendRedirect("./ordini");
+ 	}
+ 
+
+ 
 %>
 
 <!DOCTYPE html>
@@ -17,7 +23,27 @@
 </head>
 
 <body>
+<jsp:include page="header.jsp"/>
+<jsp:include page="barranavigazionale.jsp"/>
 	<h2>Ordini</h2>
+	<% if(account.getAdmin()==1){ %>
+				<form action="prodotto" method="get">
+				<input type="hidden" name="action" value="ricerca"> 
+				<label for="CF"> CF cliente: </label><br> 
+				<input name="CF" type="text" placeholder="inserisci codice fiscale"><br> 
+				<input type="submit" value="submit"><input type="reset" value="Reset">
+				</form>
+				<br>
+				<form action="prodotto" method="get">
+				<input type="hidden" name="action" value="ricercaData"> 
+				<label for="DataOrdine1">Data inizio: </label><br> 
+				<input name="DataOrdine1" type="text" maxlength="20"  placeholder="inserisci data inizio"><br> 
+				<label for="DataOrdine2">Data fine: </label><br>
+				<input name="DataOrdine2" type="text" maxlength="20"  placeholder="inserisci data fine"><br> 
+				<input type="submit" value="submit"><input type="reset" value="Reset">
+				</form>
+			
+		<%} %>
 	<table border="1">
 		<tr>
 		
@@ -43,7 +69,7 @@
 			<td><%=bean.getBuono() %></td>
 			<td><%=bean.getCfcliente() %></td>
 			<td><%=bean.getData() %></td>
-			<td><a href="prodotto?action=dettagli&codice=<%=bean.getId_ord()%>" target=_blank>DETTAGLI</a>
+			<td><a href="prodotto?action=dettagli&codice=<%=bean.getId_ord()%>">DETTAGLI</a>
 			
 		</tr>
 		<%
@@ -57,6 +83,8 @@
 			}
 		%>
 	</table>
-	<a href="./ProductV.jsp">HOME</a>
+		
+	<jsp:include page="footer.jsp"/>
+
 </body>
 </html>

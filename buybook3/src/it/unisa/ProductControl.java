@@ -36,10 +36,9 @@ public class ProductControl extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+	UserBean user= (UserBean) request.getSession().getAttribute("currentSessionUser");
 		 
 		Cart cart = (Cart)request.getSession().getAttribute("cart");
 		if(cart == null) {
@@ -48,7 +47,7 @@ public class ProductControl extends HttpServlet {
 		}
 		
 		String action = request.getParameter("action");
-
+		//System.out.println(action);
 		try {
 			if (action != null) {
 				if (action.equalsIgnoreCase("addC")) {
@@ -71,32 +70,44 @@ public class ProductControl extends HttpServlet {
 					request.setAttribute("prodotto", model.doRetrieveByKey(id));
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/details.jsp");
 					dispatcher.forward(request, response);
+					/*
 				} else if (action.equalsIgnoreCase("delete")) {
 					int id = Integer.parseInt(request.getParameter("id"));
 					//model.doDelete(id);
-				} else if (action.equalsIgnoreCase("insert")) {
-					String name = request.getParameter("Nome");
+					*/
+				
+				} else if (action.equalsIgnoreCase("inserimento")) {
+					
+					String cod= request.getParameter("codice");
+					String autore=request.getParameter("autore");
+					int sconto= Integer.parseInt(request.getParameter("sconto"));
 					String description = request.getParameter("genere");
 					int price = Integer.parseInt(request.getParameter("prezzo"));
-					int quantity = Integer.parseInt(request.getParameter("N_pezzi"));
-					int sconto= Integer.parseInt(request.getParameter("sconto"));
-
+					int quantity = Integer.parseInt(request.getParameter("N_pezzi"));	
+					String name = request.getParameter("nome");	
+					
 					ProductBean bean = new ProductBean();
-					bean.setName(name);
+					bean.setCodice(cod);
+					bean.setAutore(autore);
+					bean.setSconto(sconto);
 					bean.setgenere(description);
 					bean.setPrice(price);
-					bean.setQuantità(quantity);
-					bean.setSconto(sconto);
-					//model.doSave(bean);
+					bean.setQuantità(quantity);	
+			     	bean.setName(name);		
+					model.doSaveins(bean);
+				
+			        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");
+	                dispatcher.forward(request, response);
+	                return;
 					
 				}
 				else if (action.equalsIgnoreCase("acquista")) {
                     Cart c=(Cart)request.getSession().getAttribute("cart");
-                    UserBean user = (UserBean)request.getSession().getAttribute("currentSessionUser");
+                    user = (UserBean)request.getSession().getAttribute("currentSessionUser");
                     
                     UserDAO.doSave(user,c);
                     for(CartProduct prod:c.getProducts())
-                    { model.update(prod);
+                    { ((ProductModelDS) model).update(prod);
                    
                     }
                     c.getProducts().removeAll(c.getProducts());
@@ -104,20 +115,6 @@ public class ProductControl extends HttpServlet {
                     dispatcher.forward(request, response);
                     return;
                 }
-				else if (action.equalsIgnoreCase("ordini")) {           
-                    UserBean user = (UserBean)request.getSession().getAttribute("currentSessionUser");
-                  if (user!= null){
-                	     Listaordini lista = OrdiniDAO.doRetrieveByKey(user.getCf());
-                   request.setAttribute("listaordini",lista);                       
-                  
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Ordini.jsp");
-                    dispatcher.forward(request, response);
-                    return;}
-                  
-                    else {
-                  	  RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Loginerrato.jsp");
-                        dispatcher.forward(request, response);}
-  				}		
 				
   				else if (action.equalsIgnoreCase("dettagli")) {           
                     int cod=Integer.parseInt(request.getParameter("codice")) ;                     
@@ -128,6 +125,100 @@ public class ProductControl extends HttpServlet {
                     return;
 				
 			}	
+  				else if (action.equalsIgnoreCase("VOrdini")) {
+  						user= (UserBean) request.getSession().getAttribute("currentSessionUser");
+  						String redirect="";
+  						if(user!=null) {
+  							if(user.getAdmin()==1) {
+  								request.setAttribute("VOrdini", OrdiniDAO.doRetrieveAll());
+  								redirect="/Ordini.jsp";
+  							}
+  							else {
+  								request.setAttribute("VOrdini", OrdiniDAO.doRetrieveByKey(user.getCf()));
+								redirect="/Ordini.jsp";
+  							}
+  						} else redirect="/Loginerrato.jsp";
+  	                                         
+  	              
+  	                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(redirect);
+  	                    dispatcher.forward(request, response);
+  	                    return;
+  				}
+					else if (action.equalsIgnoreCase("Catalogo")) {
+						
+						request.setAttribute("prodotti", model.doRetrieveAll(""));
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");			
+								dispatcher.forward(request, response); return;
+					}
+					else if (action.equalsIgnoreCase("modificaCC")) {
+						String id= request.getParameter("codice");
+						String aut = request.getParameter("autore");
+						model.doUpdate(id,aut,"autore");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");
+						dispatcher.forward(request, response);
+						return;
+					}
+					else if (action.equalsIgnoreCase("modificaSc")) {
+						String id= request.getParameter("codice");
+						String sconto = request.getParameter("sconto");
+						model.doUpdate(id,sconto,"sconto");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");
+						dispatcher.forward(request, response);
+						return;
+					}
+					else if (action.equalsIgnoreCase("modificaPrz")) {
+						String id= request.getParameter("codice");
+						String prz = (request.getParameter("prezzo"));
+						model.doUpdate(id,prz,"prezzo");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");
+						dispatcher.forward(request, response);
+						return;
+					}
+					else if (action.equalsIgnoreCase("modificaNom")) {
+						String id= request.getParameter("codice");
+						String nome = request.getParameter("nome");
+						model.doUpdate(id,nome,"nome");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");
+						dispatcher.forward(request, response);
+						return;
+					}	
+					else if (action.equalsIgnoreCase("modificaGen")) {
+						String id= request.getParameter("genere");
+						String gen =request.getParameter("genere");
+						model.doUpdate(id,gen,"genere");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");
+						dispatcher.forward(request, response);
+						return;
+					}
+					else if (action.equalsIgnoreCase("modificaPz")) {
+						String id= request.getParameter("genere");
+						String pz = request.getParameter("N_pezzi");
+						model.doUpdate(id,pz,"N_pezzi");
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Catalogo.jsp");
+						dispatcher.forward(request, response);
+						return;
+					}
+					else if(action.equalsIgnoreCase("ricerca")) {
+						String sort = request.getParameter("CF");
+						
+						request.removeAttribute("VOrdini");
+						request.setAttribute("VOrdini", OrdiniDAO.doRetrieveByKey2(sort, null, null));
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Ordini.jsp");
+						dispatcher.forward(request, response);
+						return;
+					}
+					else if(action.equalsIgnoreCase("ricercaData")) {
+						String d1= request.getParameter("DataOrdine1");
+						String d2 = request.getParameter("DataOrdine2");
+
+						request.removeAttribute("VOrdini");
+						request.setAttribute("VOrdini", OrdiniDAO.doRetrieveByKey2(null,d1,d2));
+
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Ordini.jsp");
+						dispatcher.forward(request, response);
+						return;
+					}	
+				
           
 		}} catch (SQLException e) {
 			System.out.println("Error:" + e.getMessage());

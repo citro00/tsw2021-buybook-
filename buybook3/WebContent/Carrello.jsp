@@ -21,6 +21,8 @@
 </head>
 
 <body>
+<jsp:include page="header.jsp"/>
+<jsp:include page="barranavigazionale.jsp"/>
 
 		<h2>Carrello</h2>
 		<table border="1">
@@ -28,7 +30,7 @@
 			<th>Nome</th>
 			<th>Costo totale</th>
 			<th>Quantità</th>
-			<th>Action</th>
+			<th>Azione</th>
 		</tr>
 		<% List<CartProduct> ProdottiCarrello= cart.getProducts(); 	
 		   for(CartProduct beancart: ProdottiCarrello) {
@@ -54,7 +56,7 @@
         
 		</tr>
 		
-	</table>		
-	<a href="./ProductV.jsp">HOME</a>
+
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

@@ -18,7 +18,14 @@ public class UserBean {
     private String cvv;
     private String scad;
     private String intestatario;
+    private int admin;
     
+    public int getAdmin() {
+		return admin;
+	}
+    public void setAdmin(int admin) {
+		this.admin = admin;
+	}
     
    private boolean valid;
 	

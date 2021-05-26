@@ -1,3 +1,4 @@
+<%@page import="it.unisa.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -7,6 +8,7 @@
 		response.sendRedirect("./prodotto");	
 		return;
 	}
+	UserBean account= (UserBean) session.getAttribute("currentSessionUser");
 %>
 
 <!DOCTYPE html>
@@ -20,16 +22,20 @@
 </head>
 
 <body>
+<jsp:include page="header.jsp"/>
+<jsp:include page="barranavigazionale.jsp"/>
 
-	<h2>Prodotti</h2>
-	<a href="prodotto?action=ordini"target=_blank>ordini</a>
+	<h2>Libri Disponibili</h2>
+	
 	<table border="1">
 		<tr>
-			<th>codice</th>
+			<th>Codice</th>
 			<th>Nome </th>
 			<th>genere </th>
 			<th>Prezzo</th>
 			<th>Sconto</th>
+		    <th>Autore</th>
+		    <th>Azione</th>
 		</tr>
 		<%
 			if (prodotti != null && prodotti.size() != 0) {
@@ -43,9 +49,10 @@
 			<td><%=bean.getgenere()%></td>
 			<td><%=bean.getPrezzo() %></td>
 			<td><%=bean.getSconto() %></td>
-			<td><a href="prodotto?action=read&codice=<%=bean.getCodice()%>" target=_blank>DETTAGLI</a>
+			<td><%=bean.getAutore() %></td>
+			<td><a href="prodotto?action=read&codice=<%=bean.getCodice()%>">DETTAGLI</a>
 			<br>
-			<a href="prodotto?action=addC&codice=<%=bean.getCodice()%>"target=_blank>Aggiungi al Carrello</a>
+			<a href="prodotto?action=addC&codice=<%=bean.getCodice()%>">Aggiungi al Carrello</a>
                 
                 </td>
 			
@@ -62,7 +69,7 @@
 			}
 		%>
 	</table>
-	<a href="./LoginPage.jsp"target=_blank>login</a>
-	<a href="./Registrazione.jsp"target=_blank>Registrati</a>
-</body>
+	
+	<jsp:include page="footer.jsp"/>
+
 </html>

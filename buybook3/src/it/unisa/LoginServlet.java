@@ -1,3 +1,4 @@
+
 package it.unisa;
 
 import java.io.IOException;
@@ -28,11 +29,23 @@ try
      user = UserDAO.doRetrieve(user);
 	   		    
      if (user.isValid())
+     
+     
      {
+    	if (user.getAdmin()==0) {
 	      HttpSession session = request.getSession(true);	    
           session.setAttribute("currentSessionUser",user); 
           response.sendRedirect("ProductV.jsp"); //logged-in page      		
-     }      
+    	}
+    	else {
+    		 HttpSession session = request.getSession(true);	    
+             session.setAttribute("currentSessionUser",user); 
+             response.sendRedirect("adminpage.jsp"); //logged-in page admin    		
+    	}
+     
+     }   
+     
+     
      else { 
           response.sendRedirect("ProductV.jsp"); //error page 
 }}	

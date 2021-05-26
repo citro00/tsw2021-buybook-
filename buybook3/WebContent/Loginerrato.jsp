@@ -12,7 +12,11 @@
 </head>
 
 <body>
-		<h1>Utente e password errati!!</h1>
- 		<a href="./Registrazione.jsp">Registrati per acquistare</a>
+<jsp:include page="header.jsp"/>
+<jsp:include page="barranavigazionale.jsp"/>
+		<h1>Utente e password errati </h1><br>
+		<h2>Prova a riinserire le credenziali altrimenti  se non hai un account registrati nell'area di registrazione.</h2>
+		
+ <jsp:include page="footer.jsp"/>
 </body>
 </html>

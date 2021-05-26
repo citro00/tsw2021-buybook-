@@ -1,63 +1,105 @@
 @CHARSET "UTF-8";
+    @media screen and (max-width: 1000px) {}
+    img {
+    	text-align: left;
+        left: 0px;
+        margin-button: 5px;
+        margin-top: 5px;
+        margin-left: 5px;
+        padding: 0px;
+        border: 2px solid;
+    }
+    body {
+      background-color: #FFFFFF;
+      height: 100%;
+      width: 200px auto;
+      text-align: center;
+      font-family : Verdana, Helvetica, sans-serif;
+    }
+    h1, h2 {
+        text-align: center;
+        color: #12111;
+        margin: 10px;
+    }
+    h3{
+        font-weight: bold;
+        color: #FFFFFF;
+    }
+    a:link {
+        color: black;
+        font-weight: bolder;
 
-html {
-	width: 500px;
-	margin: 10px auto;
-}
+    }
 
-h2 {
-	text-align: center;
-}
+    a:visited {
+        color: black;
+        font-weight: bolder;
+    }
 
-a:link {
-	color: blue;
-	font-weight: bold;
-}
+    a:hover {
+        color: black;
+        font-weight: bolder;
+    }
 
-/* visited link */
-a:visited {
-	color: blue;
-	font-weight: bold;
-}
+    a:active {
+        color: black;
+        font-weight: bolder;
+    }
 
-/* mouse over link */
-a:hover {
-	color: red;
-	font-weight: bold;
-}
+    table {
+        width: 500px auto;
+        text-align: center;
+        margin: 10px auto;
+    }
+    table, th, td {
+        text-align: center;
+        border: 2px solid #8f2907;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 5px;
+    }
+    
 
-a:active {
-	color: blue;
-	font-weight: bold;
-}
+    label {
+        font-weight: bolder;
+    }
 
-table {
-	width: 500px;
-}
+    form input[type=text], form input[type=number], form input[type=password],
+        form input[type=date], form input[type=range], form input[type=email],
+        form input[type=url], form input[type=time], form input[list] {
+        width: 400px;
+        font-size: 1em;
+    }
 
-table, th, td {
-	text-align: center;
-	border: 1px solid black;
-	border-collapse: collapse;
-}
+    textarea {
+        width: 500px;
+        height: 60px;
+        font-size: 1em;
+    }
 
-th, td {
-	padding: 5px;
-}
+    nav{  
+           
+        text-color: #000000;
+        background: #ff0000;
+        margin: 2px auto;
+        line-height: 20px;
+        border-width: 2px;
+    }
+    
+footer{
+        text-color: #000000;
+        background: #ff0000;
+        margin: 20px auto;
+        line-height: 20px;
+        border-width: 10px;
 
-label {
-	font-weight: bold;
-}
-
-form input[type=text], form input[type=number], form input[type=password],
-	form input[type=date], form input[type=range], form input[type=email],
-	form input[type=url], form input[type=time], form input[list] {
-	width: 500px;
-	font-size: 1em;
-}
-
-textarea {
-	width: 500px;
-	height: 60px;
-	font-size: 1em;
-}
+    }
+    
+header #header{
+        text-color: #000000;
+        text-align: left;
+        background-color: #ff0000;
+        margin: 20px auto;
+        color: black;
+        line-height: 20px; }

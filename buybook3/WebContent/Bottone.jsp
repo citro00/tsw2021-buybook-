@@ -3,10 +3,7 @@
 
 <%
 	Collection<?> prodotti = (Collection<?>) request.getAttribute("prodotti");
-	
-	
 	ProductBean prodotto = (ProductBean) request.getAttribute("prodotto");
-	
 	Cart cart = (Cart) request.getAttribute("Cart");
 %>
 

@@ -13,6 +13,8 @@
 	</head>
 
 	<body>
+	<jsp:include page="header.jsp"/>
+	<jsp:include page="barranavigazionale.jsp"/>
 		<form action="Register">
 
 			Inserisci il tuo username 		
@@ -63,8 +65,11 @@
 			Inserisci Intestatario carta
 			<input type="text" name="intestatario"/><br>
 			
-			<input type="submit" value="submit">			
+			<input type="submit" value="Registrati">			
 		
 		</form>
+				
+	<jsp:include page="footer.jsp"/>
+
 	</body>
 </html>

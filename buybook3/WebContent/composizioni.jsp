@@ -17,6 +17,8 @@
 </head>
 
 <body>
+<jsp:include page="header.jsp"/>
+<jsp:include page="barranavigazionale.jsp"/>
 	<h2>Composizioni</h2>
 	<table border="1">
 		<tr>
@@ -24,7 +26,7 @@
 			<th>quantità</th>
 			<th> numero ordine</th>
 			<th>codice</th>
-		
+
 	
 			
 		</tr>
@@ -50,6 +52,6 @@
 			}
 		%>
 	</table>
-	<a href="./ProductV.jsp">HOME</a>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

@@ -8,15 +8,17 @@
 %>
 
 <!DOCTYPE html>
-<html>
+<html> 
 	<%@ page contentType="text/html; charset=UTF-8" import="java.util.*,it.unisa.*"%>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="ProductStyle.css" rel="stylesheet" type="text/css">
-	<title>buybook DS/BF</title>
+	<title>buybook </title>
 </head>
 	
 	<body>
+		<jsp:include page="header.jsp"/>
+		<jsp:include page="barranavigazionale.jsp"/>
 		<h2>Details</h2>
 		
 		<table border="1">
@@ -28,7 +30,7 @@
 				<th>Quantità</th>
 				<th>Sconto</th>
 			</tr>
-			
+
 			<tr>
 				<td><%=prodotto.getCodice()%></td>
 				<td><%=prodotto.getName()%></td>
@@ -41,6 +43,6 @@
 			</tr>
 		
 		</table>
-		<a href="./ProductV.jsp">HOME</a>
+		<jsp:include page="footer.jsp"/>
 	</body>
 </html>

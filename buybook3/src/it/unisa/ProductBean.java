@@ -8,6 +8,7 @@ public class ProductBean implements Serializable {
 
 	String codice;
 	String nome;
+	String autore;
 	String genere;
 	float prezzo;
 	int quantità;
@@ -16,6 +17,7 @@ public class ProductBean implements Serializable {
 	public ProductBean() {
 		codice ="";
 		nome = "";
+		autore="";
 		genere = "";
 		quantità = 0;
 		sconto=0;
@@ -74,5 +76,30 @@ public class ProductBean implements Serializable {
 	public String toString() {
 		return nome + " (" + codice + "), " + prezzo + " " + quantità + ". " + genere+ " "+sconto;
 	}
+public String getAutore() {
+	return autore;
+}
+
+public void setAutore(String autore) {
+	this.autore = autore;
+}
+public String getGenere() {
+	return genere;
+}
+public String getNome() {
+	return nome;
+}
+
+public void setGenere(String genere) {
+	this.genere = genere;
+}
+
+public void setNome(String nome) {
+	this.nome = nome;
+}
+
+public void setPrezzo(float prezzo) {
+	this.prezzo = prezzo;
+}
 
 }

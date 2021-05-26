@@ -39,7 +39,8 @@ public class UserDAO
 	      PreparedStatement preparedStatement = null;
 		
 	      String username = bean.getnomeutente();    
-	      String password = bean.getPassword();   
+	      String password = bean.getPassword(); 
+	      int admin=bean.getAdmin();
 		    
 	      String searchQuery =
 	            "select * from cliente where nickname='"
@@ -76,11 +77,14 @@ public class UserDAO
 	      {
 	         String firstName = rs.getString("Nome");
 	         String lastName = rs.getString("Cognome");
-		     	
+		     int amministratore=rs.getInt("admin");	
+	         
+	         
 	         System.out.println("Welcome " + firstName);
 	         bean.setnome(firstName);
 	         bean.setCf(rs.getString("CF"));
 	         bean.setcognome(lastName);
+	         bean.setAdmin(amministratore);
 	         bean.setValid(true);
 	      }
 	   } 
@@ -189,8 +193,8 @@ public class UserDAO
          Connection connection = null;
          PreparedStatement preparedStatement = null;
          String insertSQL = "INSERT INTO " + UserDAO.TABLE_NAME
-                 + "(CF, Email, nickname, password, Telefono, Cognome, Nome, datadinascita, CAP, VIA, NCivico, Provincia, NCarta, datascadenza, CVV, intestatario)"
-                 + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                 + "(CF, Email, nickname, password, Telefono, Cognome, Nome, datadinascita, CAP, VIA, NCivico, Provincia, NCarta, datascadenza, CVV, intestatario, admin)"
+                 + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
        
          try {
         	 
@@ -213,7 +217,7 @@ public class UserDAO
              preparedStatement.setString(14, user1.getScad());
              preparedStatement.setString(15, user1.getCvv());
              preparedStatement.setString(16, user1.getIntestatario());
-                       
+             preparedStatement.setInt(17, user1.getAdmin());          
 int m=preparedStatement.executeUpdate();       
   if(m==0) {
             	 user1.setValid(false);}

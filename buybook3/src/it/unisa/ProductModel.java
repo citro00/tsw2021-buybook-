@@ -9,5 +9,7 @@ public interface ProductModel {
 	
 	public Collection<ProductBean> doRetrieveAll(String s) throws SQLException;
 	
-	public void update(CartProduct s) throws SQLException;
+	public  void doUpdate(String id,String x, String set) throws SQLException;
+
+	void doSaveins(ProductBean prodotto) throws SQLException;
 }

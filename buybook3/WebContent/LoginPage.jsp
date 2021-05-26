@@ -13,16 +13,21 @@
 	</head>
 
 	<body>
+		<jsp:include page="header.jsp"/>
+	<jsp:include page="barranavigazionale.jsp"/>
 		<form action="Login">
 
-			Please enter your username 		
+			Inserisci il tuo username		
 			<input type="text" name="nickname"/><br>		
 		
-			Please enter your password
+			Inserisci la tua paswword
 			<input type="password" name="password"/>
 			
-			<input type="submit" value="submit">			
+			<input type="submit" value="accedi">			
 		
 		</form>
+
+<jsp:include page="footer.jsp"/>
+
 	</body>
 </html>
