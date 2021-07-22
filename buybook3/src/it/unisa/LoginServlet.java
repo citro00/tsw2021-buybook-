@@ -29,8 +29,7 @@ try
      user = UserDAO.doRetrieve(user);
 	   		    
      if (user.isValid())
-     
-     
+    	
      {
     	if (user.getAdmin()==0) {
 	      HttpSession session = request.getSession(true);	    

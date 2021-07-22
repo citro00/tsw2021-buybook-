@@ -22,6 +22,8 @@
 				System.out.println("Error:" + e.getMessage());
 			}
 		}
+		
+		//Cerca nel DB la composizione 
 		public static synchronized ListaComposizioni doRetrieveByKey(int codice) throws SQLException {
 			Connection connection = null;
 			PreparedStatement preparedStatement = null;
@@ -40,7 +42,7 @@
 				
 				while (rs.next()) {
 					ComposizioneBean composizione= new ComposizioneBean();
-					composizione.setCodice(rs.getString("codice"));   
+					composizione.setCodice(rs.getString("codd"));   
 					composizione.setId_ordine(rs.getInt("id_ordine"));   
 					composizione.setQuantità(rs.getInt("quantita"));
 					

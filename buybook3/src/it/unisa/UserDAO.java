@@ -230,7 +230,42 @@ finally{
    } finally {
    if (connection != null)
        connection.close();
-}}}}
+}}}
+    
+    public static boolean control(String email) throws NamingException, SQLException {
+        Context initCtx = new InitialContext();
+         Context envCtx = (Context) initCtx.lookup("java:comp/env");
+
+         ds = (DataSource) envCtx.lookup("jdbc/buybook");
+         currentCon = ds.getConnection();
+          PreparedStatement preparedStatement = null;
+
+
+         UserBean user=null;
+        String selectSql = "select * from cliente where Email = '"+email+"'";
+        try {
+
+            preparedStatement = currentCon.prepareStatement(selectSql);
+            ResultSet rs = preparedStatement.executeQuery();
+            boolean more = rs.next();
+            if(!more) {
+                return false;
+            }
+            else {
+                return true;
+            }
+
+        } finally {
+            try {
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } finally {
+                if (currentCon != null)
+                    currentCon.close();
+            }}}
+
+
+
+
+}
        
-     
-                

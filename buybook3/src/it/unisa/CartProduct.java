@@ -7,6 +7,8 @@ public class CartProduct {
 		setProdotto(b);
 		this.Pezzi=1;
 	}
+	
+	//I get del carello
 	public int getPezzi() {
 		return Pezzi;
 	}

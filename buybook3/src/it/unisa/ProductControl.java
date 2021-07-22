@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,7 @@ import it.unisa.ProductModelDS;
 import it.unisa.Cart;
 import it.unisa.ProductBean;
 import it.unisa.CartProduct;
-
+@WebServlet("/prodotto")
 /**
  * Servlet implementation class ProductControl
  */
@@ -57,6 +58,7 @@ public class ProductControl extends HttpServlet {
 					request.setAttribute("Cart", cart);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Carrello.jsp");	
 					dispatcher.forward(request, response);
+					
 				}  else if (action.equalsIgnoreCase("deleteC")) {
 					String codice = (request.getParameter("codice"));
 					cart.deleteProduct(new CartProduct(model.doRetrieveByKey(codice)));
@@ -64,6 +66,7 @@ public class ProductControl extends HttpServlet {
 					request.setAttribute("Cart", cart);
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Carrello.jsp");
 					dispatcher.forward(request, response);
+					
 				} else if (action.equalsIgnoreCase("read")) {
 					String id = (request.getParameter("codice"));
 					request.removeAttribute("prodotto");
@@ -117,7 +120,8 @@ public class ProductControl extends HttpServlet {
                 }
 				
   				else if (action.equalsIgnoreCase("dettagli")) {           
-                    int cod=Integer.parseInt(request.getParameter("codice")) ;                     
+                    int cod=Integer.parseInt(request.getParameter("codice")) ;   
+          
                   ListaComposizioni  lista2  =ComposizioneDAO.doRetrieveByKey(cod);
                   request.setAttribute("composizioni",lista2);
                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/composizioni.jsp");

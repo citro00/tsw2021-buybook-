@@ -49,6 +49,7 @@ public class ProductModelDS implements ProductModel {
 
 			while (rs.next()) {
 				bean.setCodice(rs.getString("codice"));
+				bean.setAutore(rs.getString("autore"));
 				bean.setName(rs.getString("nome"));
 				bean.setgenere(rs.getString("genere"));
 				bean.setPrice(rs.getFloat("prezzo"));

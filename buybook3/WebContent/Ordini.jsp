@@ -18,7 +18,9 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="ProductStyle.css" rel="stylesheet" type="text/css">
+	
+<link href="Ordini.css" rel="stylesheet" type="text/css">
+		<link href="ProductStyle.css" rel="stylesheet" type="text/css">	
 	<title>Ordini</title>
 </head>
 
@@ -44,47 +46,52 @@
 				</form>
 			
 		<%} %>
-	<table border="1">
-		<tr>
-		
-			<th>IDOrdine</th>
-			<th>Stato </th>
-			<th>costo</th>
-			<th>Buono</th>
-			<th>Cfcliente</th>
-			<th>data</th>
-		   <th>DETTAGLI</th>
+	<section>
+  
 			
-		</tr>
 		<%
 			if (ordini != null && ordini.size() != 0) {
 				Iterator<?> it = ordini.iterator();
 				while (it.hasNext()) {
 					OrdiniBean bean = (OrdiniBean) it.next();
 		%>
-		<tr>
-			<td><%=bean.getId_ord() %></td>
-			<td><%=bean.getStato()%></td>
-			<td><%=bean.getCosto() %></td>
-			<td><%=bean.getBuono() %></td>
-			<td><%=bean.getCfcliente() %></td>
-			<td><%=bean.getData() %></td>
-			<td><a href="prodotto?action=dettagli&codice=<%=bean.getId_ord()%>">DETTAGLI</a>
+		
 			
-		</tr>
+  <div class="panel-body">
+            <div class="row">
+                <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
+                <div class="col-md-11">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right"><label class="label label-danger">            <%=bean.getStato()%>
+                            </label></div>
+                            <span><strong>Id ordine: <%=bean.getId_ord() %>  Id Utente: <%=bean.getCfcliente() %></strong></span> 
+                           Costo: <%=bean.getCosto() %> €
+                            <br />
+                            
+                        </div>
+                        <div class="col-md-12">Data ordine: <%=bean.getData() %> 
+                        <a href="prodotto?action=dettagli&codice=<%=bean.getId_ord()%>">DETTAGLI</a> </div>
+                    </div>
+                </div>
+            </div>
+  
+  
+
 		<%
 				}
-			} else {
+			} 
 		%>
-		<tr>
-			<td colspan="6">Non ci sono ordini</td>
-		</tr>
-		<%
-			}
-		%>
-	</table>
+		
+		
 		
 	<jsp:include page="footer.jsp"/>
 
 </body>
 </html>
+
+
+
+
+
+

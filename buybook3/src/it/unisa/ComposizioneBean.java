@@ -1,11 +1,11 @@
 package it.unisa;
 
 public class ComposizioneBean {
-// variabili di istanze
+// variabili di istanza
 	private  int quantità;
 	private int id_ordine;
 	private String codice;
-	
+//Get composizioni
 	public int getQuantità() {
 		return quantità;
 	}

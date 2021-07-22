@@ -8,64 +8,109 @@
 
 <html>
 	<head>
+		<link href="ProductStyle.css" rel="stylesheet" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
+        <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<title>Registrati</title>
 	</head>
 
 	<body>
 	<jsp:include page="header.jsp"/>
 	<jsp:include page="barranavigazionale.jsp"/>
+	
+	
+	
+	
+	<script>
+	
+	function checkemail(){
+                var valid=true;
+                var email=/^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
+                var ema=document.getElementById("email");
+                if(ema.value.match(email)){
+                    ema.classList.remove("error");
+                    document.getElementById("spanerror").innerHTML = " ";
+                }
+                else{
+                    valid=false;
+                    ema.classList.add("error");
+                    document.getElementById("spanerror").innerHTML = "inserire un'email valida";
+
+                }
+
+                }
+	
+	</script>
+	<script>
+	function checkpass(){
+        var valid=true;
+        var email=/^.{7,15}$/;
+        var ema=document.getElementById("pass");
+        if(ema.value.match(email)){
+            ema.classList.remove("error");
+            document.getElementById("spane").innerHTML = " ";
+        }
+        else{
+            valid=false;
+            ema.classList.add("error");
+            document.getElementById("spane").innerHTML = "inserire una password valida (da 7 a 15 caratteri)";
+
+        }
+
+        }
+	
+	
+	$(document).ready(function(){
+        $("#email").blur(function(){
+            var email= $("#email").val();
+            $.ajax({
+            type:"POST",
+            data:{email:email},
+            url:"controllo",
+            success:function(result){
+            $("#c").html(result);
+            }
+            });
+        });
+    });
+                </script>
+                
 		<form action="Register">
 
-			Inserisci il tuo username 		
-			<input type="text" name="nickname"/><br>		
+			<input type="text" name="nickname" placeholder="Username" required/><br>		
+		<span id="spane"></span> <br>
+			<input type="password" name="password" placeholder="Password"  class="" id="pass" onblur="checkpass()"/><br>
+			
+			<input type="text" name="Nome" placeholder="Nome"/ required><br>
+			
+			<input type="text" name="Cognome" placeholder="Cognome" required/><br>
+			<span id="spanerror"></span> <br>
+			<span id="c"> </span> <br>
+			<input type="text" name="Email" placeholder="Email" class="" id="email" onblur="checkemail()" required/><br> 
 		
-			Inserisci la tua password
-			<input type="password" name="password"/><br>
+			<input type="text" name="CF" placeholder="Codice fiscale" required/><br>
 			
-			Inserisci Nome
-			<input type="text" name="Nome"/><br>
+			<input type="text" name="Telefono" placeholder="Telefono"/><br>
 			
-			Inserisci Cognome
-			<input type="text" name="Cognome"/><br>
+			<input type="text" name="datadinascita" placeholder="Data di nascita"/><br>
 			
-			Inserisci Email
-			<input type="text" name="Email"/><br>
+			<input type="text" name="CAP" placeholder="Cap"/><br>
 			
-			Inserisci Codice Fiscale
-			<input type="text" name="CF"/><br>
+			<input type="text" name="VIA" placeholder="Via"/><br>
 			
-			Inserisci Telefono
-			<input type="text" name="Telefono"/><br>
+			<input type="text" name="NCivico" placeholder="Numero civico"/><br>
 			
-			Inserisci Data di nascita
-			<input type="text" name="datadinascita"/><br>
+			<input type="text" name="Provincia" placeholder="Provincia"/><br>
 			
-			Inserisci Cap
-			<input type="text" name="CAP"/><br>
+			<input type="text" name="NCarta" placeholder="Numero carta"/><br>
 			
-			Inserisci Via
-			<input type="text" name="VIA"/><br>
+			<input type="text" name="datascadenza" placeholder="Data di scadenza"/><br>
 			
-			Inserisci Numero civico
-			<input type="text" name="NCivico"/><br>
+			<input type="text" name="CVV" placeholder="CVV"/><br>
 			
-			Inserisci Provincia
-			<input type="text" name="Provincia"/><br>
+			<input type="text" name="intestatario" placeholder="Intestatario carta"/><br>
 			
-			Inserisci Numero carta di credito
-			<input type="text" name="NCarta"/><br>
-			
-			Inserisci Data scadenza
-			<input type="text" name="datascadenza"/><br>
-			
-			Inserisci CVV
-			<input type="text" name="CVV"/><br>
-			
-			Inserisci Intestatario carta
-			<input type="text" name="intestatario"/><br>
-			
-			<input type="submit" value="Registrati">			
+			<a value="Registrati" href="LoginPage.jsp">Registrati	
 		
 		</form>
 				

@@ -18,57 +18,63 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="ProductStyle.css" rel="stylesheet" type="text/css">
+	
 	<title>buybook</title>
 </head>
 
 <body>
 <jsp:include page="header.jsp"/>
+<div class="hero-image">
+      <div class="hero-text">
+        <h1 style="font-size:30px">Buybook</h1>
+
+      </div>
+    </div>
 <jsp:include page="barranavigazionale.jsp"/>
 
-	<h2>Libri Disponibili</h2>
+		<%
+        int i=0;
+        int j=0;
+
+        String[] nomi= {"column side","column middle","column side"};
+        if (prodotti != null && prodotti.size() != 0) {
+                   Iterator<?> it = prodotti.iterator();
+                   ArrayList<ProductBean> ls= new ArrayList<ProductBean>();
+                   while (it.hasNext()) {
+                       ProductBean bean = (ProductBean) it.next();
+                       ls.add(bean);
+                       System.out.println(ls.get(i).toString());
+                       i++;
+                       }
+
+                 %>
+          <div class= "row">
+                <% for(i=0;i<ls.size();i++){%>
+
+
+                 <div class="<%=nomi[j]%>">
+                 <img src="./getPicture?id=<%=ls.get(i).getCodice()%>" onerror="this.src='./imgs/nophoto.png width="200px" height="200px">
+                <br>
+                <%=ls.get(i).getNome()%>
+                <br>
+                <%=ls.get(i).getPrezzo()%> Euro
+                <br>
+                <a href="prodotto?action=read&codice=<%=ls.get(i).getCodice()%>">DETTAGLI</a>
+                <br>
+                <a href="prodotto?action=addC&codice=<%=ls.get(i).getCodice()%>">CARRELLO</a>
 	
-	<table border="1">
-		<tr>
-			<th>Codice</th>
-			<th>Nome </th>
-			<th>genere </th>
-			<th>Prezzo</th>
-			<th>Sconto</th>
-		    <th>Autore</th>
-		    <th>Azione</th>
-		</tr>
-		<%
-			if (prodotti != null && prodotti.size() != 0) {
-				Iterator<?> it = prodotti.iterator();
-				while (it.hasNext()) {
-					ProductBean bean = (ProductBean) it.next();
-		%>
-		<tr>
-			<td><%=bean.getCodice()%></td>
-			<td><%=bean.getName()%></td>
-			<td><%=bean.getgenere()%></td>
-			<td><%=bean.getPrezzo() %></td>
-			<td><%=bean.getSconto() %></td>
-			<td><%=bean.getAutore() %></td>
-			<td><a href="prodotto?action=read&codice=<%=bean.getCodice()%>">DETTAGLI</a>
-			<br>
-			<a href="prodotto?action=addC&codice=<%=bean.getCodice()%>">Aggiungi al Carrello</a>
-                
-                </td>
-			
-		</tr>
-		
-		<%
-				}
-			} else {
-		%>
-		<tr>
-			<td colspan="6">Non ci sono prodotti</td>
-		</tr>
-		<%
-			}
-		%>
-	</table>
+                  </div>
+
+ 
+        <%
+        if(j<2) j++;
+            else j=0;
+
+                }
+            } 
+        %>
+        </div>
+	
 	
 	<jsp:include page="footer.jsp"/>
 

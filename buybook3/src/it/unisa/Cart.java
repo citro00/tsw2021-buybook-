@@ -9,7 +9,7 @@ public class Cart {
 	public Cart() {
 		prodotti = new ArrayList<CartProduct>();
 	}
-	
+	//Aggiunge l'ordine
 	public synchronized void addProduct(CartProduct cart) {
 		CartProduct order;
         for(int i=0; i<prodotti.size(); i++) {
@@ -23,7 +23,7 @@ public class Cart {
   }
         prodotti.add(cart);
   }
-
+//Cancella l'ordine
 public void deleteProduct(CartProduct cart) {
      CartProduct order;
         for(int i=0; i<prodotti.size(); i++) {
@@ -38,7 +38,7 @@ public void deleteProduct(CartProduct cart) {
         }
 }
 	
-
+//Prende il prodotto e lo mette in carrello
 	public List<CartProduct> getProducts() {
 		return  prodotti;
 	}
